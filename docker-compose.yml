@@ -1,0 +1,16 @@
+version: '3'
+services:
+  volna-client-bot:
+    image: volna-client-bot:1.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/logs
+    command: java -jar volna-client-bot.jar
+    restart: always
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "3"

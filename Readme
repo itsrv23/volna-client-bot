@@ -1,0 +1,13 @@
+Бот доступен по адресу @taxi_volna_bot
+
+@SamaelKrd23 - мой контакт для связи :)
+
+docker build -t volna-client-bot:1.0 .
+docker run -p 8080:8080 volna-client-bot:1.0
+docker ps
+docker stop CONTAINER_ID
+
+
+docker-compose up --no-start
+docker-compose start/stop/restart
+docker-compose logs -f --tail=50
