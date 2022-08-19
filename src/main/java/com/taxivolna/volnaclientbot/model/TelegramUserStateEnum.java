@@ -6,7 +6,9 @@ public enum TelegramUserStateEnum {
     CLIENT_CABINET("Кабинет клиента"),
     DRIVER_CABINET("Кабинет водителя"),
     PROMO_ASK_PHONE("Запрашиваем телефон"),
-    PROMO_ENTER_CODE("Ждем ввода промокода");
+    PROMO_ENTER_CODE("Ждем ввода промокода"),
+    SUPPORT("Поддержка"),
+    SUPPORT_ASK_PHONE("Поддержка");
 
     private final String name;
 

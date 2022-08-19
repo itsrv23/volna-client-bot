@@ -31,7 +31,7 @@ public class LoggingAspect {
         stopWatch.stop();
 
         //Log method execution time
-        LOGGER.info("Execution time of "
+        LOGGER.debug("Execution time of "
                 + methodSignature.getDeclaringType().getSimpleName() // Class Name
                 + "." + methodSignature.getName() + " " // Method Name
                 + ":: " + stopWatch.getTotalTimeMillis() + " ms");
