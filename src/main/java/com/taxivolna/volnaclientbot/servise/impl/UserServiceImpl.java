@@ -1,18 +1,20 @@
 package com.taxivolna.volnaclientbot.servise.impl;
 
 import com.pengrad.telegrambot.model.Update;
-import com.taxivolna.volnaclientbot.model.TelegramUserStateEnum;
+import com.taxivolna.volnaclientbot.crm.MessageBuilder;
 import com.taxivolna.volnaclientbot.model.TelegramUser;
 import com.taxivolna.volnaclientbot.model.TelegramUserState;
+import com.taxivolna.volnaclientbot.model.TelegramUserStateEnum;
 import com.taxivolna.volnaclientbot.repository.TelegramUserRepository;
 import com.taxivolna.volnaclientbot.repository.TelegramUserStateRepository;
 import com.taxivolna.volnaclientbot.servise.UserService;
-import com.taxivolna.volnaclientbot.listener.MessageBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 
 import static com.taxivolna.volnaclientbot.model.TelegramUserStateEnum.MAIN_MENU;
 
@@ -28,14 +30,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateState(TelegramUser user, TelegramUserStateEnum newState) {
+    public TelegramUser updateState(TelegramUser user, TelegramUserStateEnum newState) {
         logger.info("Set user state: " + getUserState(newState));
         user.setUserState(getUserState(newState));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public TelegramUser findUser(Update update) {
+    public TelegramUser findUserOrCreate(Update update) {
         return userRepository.findByUserId(getUserId(update)).orElseGet(() -> createUser(update));
     }
 
@@ -44,6 +46,9 @@ public class UserServiceImpl implements UserService {
         TelegramUser user = new TelegramUser();
         user.setUserId(getUserId(update));
         user.setUserState(getUserState(MAIN_MENU));
+        if (user.getDtCreate() == null) {
+            user.setDtCreate(OffsetDateTime.now());
+        }
         logger.info("New user was created: " + user);
         return userRepository.save(user);
     }
@@ -64,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TelegramUser savePhone(Update update) {
-        TelegramUser user = findUser(update);
+        TelegramUser user = findUserOrCreate(update);
         // В теле может прийти null
         if(update.message().contact() != null) {
             user.setPhone(convertPhoneLocalFormat(update.message().contact().phoneNumber()));

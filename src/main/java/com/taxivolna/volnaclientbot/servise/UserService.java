@@ -6,8 +6,8 @@ import com.taxivolna.volnaclientbot.model.TelegramUser;
 import com.taxivolna.volnaclientbot.model.TelegramUserState;
 
 public interface UserService {
-    void updateState(TelegramUser user, TelegramUserStateEnum newState);
-    TelegramUser findUser(Update update);
+    TelegramUser updateState(TelegramUser user, TelegramUserStateEnum newState);
+    TelegramUser findUserOrCreate(Update update);
     TelegramUser createUser(Update update);
     TelegramUserState getUserState(TelegramUserStateEnum stateEnum);
     TelegramUserState createUserState(TelegramUserStateEnum stateEnum);
