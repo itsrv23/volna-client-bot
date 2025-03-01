@@ -15,7 +15,7 @@ public class MenuKeyboard {
 
     private Keyboard getDefaultReplayKeyboardMenu() {
         return new ReplyKeyboardMarkup(K_ENTER_PROMO, K_SUPPORT)
-                .addRow(K_ABOUT_AS, K_NEXT)
+                .addRow(K_ABOUT_AS)
                 .oneTimeKeyboard(true)
                 .resizeKeyboard(true)
                 .selective(true);

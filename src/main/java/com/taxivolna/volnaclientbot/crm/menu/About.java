@@ -21,7 +21,7 @@ public class About {
                 "В Севастополе: +7 (978) 727-07-27\n" +
                 "В Ялте: +7 (978) 055-05-05\n" +
                 "\n" +
-                "@SamaelKrd23 - по вопросам работоспособности и новому функционалу";
+                "@nikiv70 - по вопросам работоспособности и новому функционалу";
         return new SendMessage(userId, answer)
                 .replyMarkup(menuKeyboard.getInlineKeyboardMenu(Button.K_ABOUT_AS));
     }
